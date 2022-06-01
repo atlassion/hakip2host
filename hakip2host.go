@@ -40,9 +40,9 @@ func sslChecks(ip string, resChan chan<- string, client *http.Client) {
 	if resp.TLS != nil && len(resp.TLS.PeerCertificates) > 0 {
 		dnsNames := resp.TLS.PeerCertificates[0].DNSNames
 		for _, name := range dnsNames {
-			resChan <- "[SSL-SAN] " + ip + " " + string(name)
+			resChan <- string(name)
 		}
-		resChan <- "[SSL-CN] " + ip + " " + resp.TLS.PeerCertificates[0].Subject.CommonName
+		resChan <- resp.TLS.PeerCertificates[0].Subject.CommonName
 	}
 }
 
@@ -55,7 +55,7 @@ func dnsChecks(ip string, resChan chan<- string, resolver *net.Resolver) {
 	}
 
 	for _, a := range addr {
-		resChan <- "[DNS-PTR] " + ip + " " + a
+		resChan <- a
 	}
 }
 
