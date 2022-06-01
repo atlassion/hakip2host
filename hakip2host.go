@@ -69,7 +69,7 @@ func worker(jobChan <-chan string, resChan chan<- string, wg *sync.WaitGroup, tr
 
 }
 func main() {
-	workers := flag.Int("t", 32, "numbers of threads")
+	workers := flag.Int("t", 1000, "numbers of threads")
 	resolverIP := flag.String("r", "", "IP of DNS resolver for lookups")
 	dnsProtocol := flag.String("protocol", "udp", "Protocol for DNS lookups (tcp or udp)")
 	resolverPort := flag.Int("p", 53, "Port to bother the specified DNS resolver on")
