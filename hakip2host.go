@@ -69,7 +69,7 @@ func worker(jobChan <-chan string, resChan chan<- string, wg *sync.WaitGroup, tr
 
 }
 func main() {
-	workers := flag.Int("t", 1000, "numbers of threads")
+	workers := flag.Int("t", 31, "numbers of threads")
 	resolverIP := flag.String("r", "", "IP of DNS resolver for lookups")
 	dnsProtocol := flag.String("protocol", "udp", "Protocol for DNS lookups (tcp or udp)")
 	resolverPort := flag.Int("p", 53, "Port to bother the specified DNS resolver on")
@@ -83,15 +83,15 @@ func main() {
 	// Set up TLS transport
 	var transport = &http.Transport{
 		Dial: (&net.Dialer{
-			Timeout: 5 * time.Second,
+			Timeout: 4 * time.Second,
 		}).Dial,
-		TLSHandshakeTimeout: 5 * time.Second,
+		TLSHandshakeTimeout: 4 * time.Second,
 		TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
 	}
 
 	// Set up HTTP client
 	var client = &http.Client{
-		Timeout:   time.Second * 10,
+		Timeout:   time.Second * 4,
 		Transport: transport,
 	}
 
